@@ -1,25 +1,18 @@
 # frozen_string_literal: true
 
-HISTORY_FILE_PATH = '/Users/andrew/.zsh_history'
-NUM_COMMANDS_TO_PRINT = 25
+require_relative './src/parser'
 
-# parse command out of a ZSH history file line entry
-def parse_command(history_line_entry)
-  # get everything on the left hand side of the ';'
-  # and join the content. We want to join the content
-  # in the case that the command itself has a ';' e.g.
-  # : 1650408552:0;git status; git clear
-  split_history = history_line_entry.split(';')
-  command_part = split_history.drop(1)
-  command_part.join(';').strip
-end
+# TODO: read this in from $HISTFILE via OS command
+HISTORY_FILE_PATH = '/Users/andrewrporter/.zsh_history'
+# TODO: make this a command line option
+NUM_COMMANDS_TO_PRINT = 25
 
 # read history of shell commands from the history file path.
 def read_commands
   commands = []
   File.open(HISTORY_FILE_PATH, 'r') do |f|
     f.each_line do |line|
-      commands.push(parse_command(line))
+      commands.push(Parser.new.parse_command(line))
     end
   end
   commands
