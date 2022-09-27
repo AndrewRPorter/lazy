@@ -1,20 +1,32 @@
 # frozen_string_literal: true
 
-require_relative './src/parser'
+require_relative './lib/history_parser'
+require_relative './lib/exceptions'
 
-# TODO: read this in from $HISTFILE via OS command
-HISTORY_FILE_PATH = '/Users/andrewrporter/.zsh_history'
 # TODO: make this a command line option
 NUM_COMMANDS_TO_PRINT = 25
+
+def history_file
+  if ENV['SHELL'] == '/bin/zsh'
+    File.expand_path('~/.zsh_history')
+  elsif ENV['SHELL'] == '/bin/bash'
+    File.expand_path('~/.bash_history')
+  else
+    raise MyCustomException
+  end
+end
 
 # read history of shell commands from the history file path.
 def read_commands
   commands = []
-  File.open(HISTORY_FILE_PATH, 'r') do |f|
+  parser = HistoryParser.new
+
+  File.open(history_file, 'r') do |f|
     f.each_line do |line|
-      commands.push(Parser.new.parse_command(line))
+      commands.push(parser.parse_command(line))
     end
   end
+
   commands
 end
 

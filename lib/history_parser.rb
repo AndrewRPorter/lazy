@@ -2,7 +2,7 @@
 
 # Simple parser to handling line items from the systems history
 # file.
-class Parser
+class HistoryParser
   # parse command out of a ZSH history file line entry
   def parse_command(history_line_entry)
     # get everything on the left hand side of the ';'
