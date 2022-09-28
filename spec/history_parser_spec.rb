@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/history_parser'
+require_relative '../lib/parser/history_parser'
 
 describe HistoryParser do
   let(:history_parser) { HistoryParser.new }

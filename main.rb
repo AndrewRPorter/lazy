@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 
-require_relative './lib/history_parser'
-require_relative './lib/exceptions'
+require 'optparse'
 
-# TODO: make this a command line option
-NUM_COMMANDS_TO_PRINT = 25
+require_relative './lib/parser/history_parser'
+require_relative './lib/exceptions'
+require_relative './lib/constants'
 
 def history_file
-  if ENV['SHELL'] == '/bin/zsh'
-    File.expand_path('~/.zsh_history')
-  elsif ENV['SHELL'] == '/bin/bash'
-    File.expand_path('~/.bash_history')
+  case ENV['SHELL']
+  when ZSH_SHELL_PATH
+    File.expand_path(ZSH_HISTORY_FILE_PATH)
+  when BASH_SHELL_PATH
+    File.expand_path(BASH_HISTORY_FILE_PATH)
   else
-    raise MyCustomException
+    raise UnknownShell
   end
 end
 
@@ -38,16 +39,35 @@ def create_mapping
 end
 
 # analyze our map to find the most frequent shell commands
-def analayze_map(command_map)
+def analayze_map(command_map, commands_to_print: NUM_COMMANDS_TO_PRINT)
   sorted_map = command_map.sort_by { |_, count| count }
   # print the top N commands
-  reversed_sorted_map = sorted_map.reverse[0...NUM_COMMANDS_TO_PRINT]
+  reversed_sorted_map = sorted_map.reverse[0...commands_to_print]
   reversed_sorted_map.each { |command, count| puts "#{command}: #{count}" }
 end
 
+def parse_arguments
+  options = {}
+  OptionParser.new do |opts|
+    opts.banner = 'Usage: main.rb [options]'
+
+    opts.on('-n', '--num num', Integer, 'Number of commands to print') do |num|
+      options[:num] = num
+    end
+  end.parse!(ARGV)
+  options
+end
+
 def run
+  options = parse_arguments
   command_map = create_mapping
-  analayze_map(command_map)
+
+  if options[:num]
+    analayze_map(command_map, commands_to_print: options[:num])
+  else
+    analayze_map(command_map)
+  end
+  
 end
 
 run
