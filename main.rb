@@ -2,39 +2,14 @@
 
 require 'optparse'
 
-require_relative './lib/parser/history_parser'
-require_relative './lib/exceptions'
+require_relative './lib/parser/history_parser_factory'
 require_relative './lib/constants'
-
-def history_file
-  case ENV['SHELL']
-  when ZSH_SHELL_PATH
-    File.expand_path(ZSH_HISTORY_FILE_PATH)
-  when BASH_SHELL_PATH
-    File.expand_path(BASH_HISTORY_FILE_PATH)
-  else
-    raise UnknownShell
-  end
-end
-
-# read history of shell commands from the history file path.
-def read_commands
-  commands = []
-  parser = HistoryParser.new
-
-  File.open(history_file, 'r') do |f|
-    f.each_line do |line|
-      commands.push(parser.parse_command(line))
-    end
-  end
-
-  commands
-end
 
 # create a mapping of command => count from the list of
 # all commands in our history file.
 def create_mapping
-  commands = read_commands
+  parser = HistoryParserFactory.create
+  commands = parser.commands
   Hash.new(0).tap { |h| commands.each { |command| h[command] += 1 } }
 end
 
@@ -67,7 +42,6 @@ def run
   else
     analayze_map(command_map)
   end
-  
 end
 
 run
