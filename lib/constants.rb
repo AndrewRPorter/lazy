@@ -5,4 +5,4 @@ BASH_SHELL_PATH = '/bin/bash'
 ZSH_HISTORY_FILE_PATH = '~/.zsh_history'
 BASH_HISTORY_FILE_PATH = '~/.bash_history'
 
-NUM_COMMANDS_TO_PRINT = 25
+NUM_COMMANDS_TO_PRINT = 10
