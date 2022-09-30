@@ -3,11 +3,13 @@
 Gem::Specification.new do |gem|
   gem.name                  = 'lazy_cli'
   gem.required_ruby_version = '>= 2.6'
-  gem.version               = '0.0.1'
+  gem.version               = '0.0.2'
   gem.authors               = ['AndrewRPorter']
   gem.email                 = ['pavelow53.andrew@gmail.com']
-  gem.summary               = ['Analyze command history and suggest aliases so you can type less.']
+  gem.summary               = 'Analyze command history and suggest aliases so you can type less.'
   gem.homepage              = 'http://github.com/AndrewRPorter/lazy'
   gem.license               = 'MIT'
   gem.files                 = `git ls-files ./lib`.split($/)
+  gem.executables           = ['lazy_cli']
+  gem.require_paths         = ['lib']
 end

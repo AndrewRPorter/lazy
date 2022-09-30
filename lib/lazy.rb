@@ -27,5 +27,3 @@ def run
     analyze_map(command_map)
   end
 end
-
-run
