@@ -15,14 +15,14 @@ gem install lazy_cli
 
 ## Usage
 
-By default, running `lazy` will yield the top 10 most used commands.
+By default, running `lz` will yield the top 10 most used commands.
 
 ```
-ruby main.rb
+lazy
 ```
 
 You can specify the number of commands you want to output by passing in a num (`-n` or `--num`).
 
 ```
-ruby main.rb -n 1
+lazy -n 1
 ```
