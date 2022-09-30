@@ -1,9 +1,17 @@
+[![Gem Version](https://badge.fury.io/rb/lazy_cli.svg)](https://badge.fury.io/rb/lazy_cli)
+
 # lazy
 
 Script used to analyze my systems shell history (ZSH in this case) and
 print out the most frequent commands.
 
 This can be used to identify potential aliases, allowing you to type less.
+
+## Installation
+
+```
+gem install lazy_cli
+```
 
 ## Usage
 
