@@ -9,4 +9,5 @@ Gem::Specification.new do |gem|
   gem.summary               = ['Analyze command history and suggest aliases so you can type less.']
   gem.homepage              = 'http://github.com/AndrewRPorter/lazy'
   gem.license               = 'MIT'
+  gem.files                 = `git ls-files ./lib`.split($/)
 end
