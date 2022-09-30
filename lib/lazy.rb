@@ -2,8 +2,8 @@
 
 require 'optparse'
 
-require_relative './lib/constants'
-require_relative './lib/analyze'
+require_relative './constants'
+require_relative './analyze'
 
 def parse_arguments
   options = {}
