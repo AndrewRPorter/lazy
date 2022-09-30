@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Gem::Specification.new do |gem|
-  gem.name                  = 'lazy'
+  gem.name                  = 'lazy_cli'
   gem.required_ruby_version = '>= 2.6'
   gem.version               = '0.0.1'
   gem.authors               = ['AndrewRPorter']
